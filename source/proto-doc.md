@@ -16,7 +16,7 @@ order: 20
 ### Config
 The "Config" message defines the type of Apollo Engine Proxy's JSON configuration file. The JSON file encodes one instance of this message, using [standard proto3 JSON mapping](https://developers.google.com/protocol-buffers/docs/proto3#json).
 
-The proto3 JSON mapping is mostly straightforward, but you may want to pay attention to the rules for specifying a [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json).
+The proto3 JSON mapping is mostly straightforward, but you may want to pay attention to the rules for specifying a [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json). For example, the string "30s" is used to stipulate a 30 second time duration. 
 
 Note that proto3 JSON flattens "oneof" messages, such that: `oneof foobar { bool foo = 1; bool bar = 2; }` is represented as: `{ "foo": true }`.
 
@@ -131,7 +131,7 @@ An Origin is a backend that the Proxy can send GraphQL requests to. Can use one 
 
 | Field | Type | Description |
 | ----- | ---- | ----------- |
-| requestTimeout |  string | Amount of time to wait before timing out request to this origin. If this is left unspecified, it will default to 30 secs for HTTP or use the function's `timeout` for Lambda. |
+| requestTimeout |  Duration | Amount of time to wait before timing out request to this origin. If this is left unspecified, it will default to 30 secs for HTTP or use the function's `timeout` for Lambda. |
 | maxConcurrentRequests |   [uint64](#uint64)  | Maximum number of concurrent requests to the origin. All requests beyond the maximum will return 503 errors. If not specified, this will default to 9999. |
 | requestType |   [Config.Protocol](#mdg.engine.config.proto.Config.Protocol)  | The type of the body of a request to this origin. If not specified, will default to JSON. |
 | supportsBatch |  bool | Does this origin support batched query requests, as defined by: https://github.com/apollographql/apollo-server/blob/213acbba/docs/source/requests.md#batching |
